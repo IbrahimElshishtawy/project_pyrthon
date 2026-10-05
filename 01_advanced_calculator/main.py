@@ -11,6 +11,13 @@ import tkinter as tk
 
 # Ensure local modules can be imported directly
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from arabic_helper import enable_arabic_support
+    enable_arabic_support()
+except Exception:
+    pass
 
 from core.calc_engine import CalculatorEngine
 from ui.calc_view import CalculatorView

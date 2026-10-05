@@ -14,6 +14,10 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+from arabic_helper import ar, get_font, FONT_FAMILY, enable_arabic_support
+
+enable_arabic_support()
+
 
 class MasterLauncherApp(tk.Tk):
     def __init__(self):
@@ -177,8 +181,8 @@ class MasterLauncherApp(tk.Tk):
 
         title = tk.Label(
             header,
-            text="🚀 منصة مشاريع بايثون الاحترافية (15 مشروع متكامل بـ Tkinter GUI)",
-            font=("Segoe UI", 18, "bold"),
+            text=f"🚀 {ar('منصة مشاريع بايثون الاحترافية (15 مشروع متكامل بـ Tkinter GUI)')}",
+            font=get_font(16, "bold"),
             bg="#111827",
             fg="#38BDF8"
         )
@@ -186,8 +190,8 @@ class MasterLauncherApp(tk.Tk):
 
         sub = tk.Label(
             header,
-            text="كل مشروع مستقل في مجلد خاص به مع معمارية منظمة وتصميم حديث",
-            font=("Segoe UI", 10),
+            text=ar("كل مشروع مستقل في مجلد خاص به مع معمارية منظمة وتصميم حديث"),
+            font=get_font(10),
             bg="#111827",
             fg="#94A3B8"
         )
@@ -199,10 +203,10 @@ class MasterLauncherApp(tk.Tk):
 
         self.current_filter = "الكل"
 
-        self.btn_tab_all = self.create_tab_btn(tabs_frame, "الكل (15 مشروع)", "الكل")
-        self.btn_tab_beg = self.create_tab_btn(tabs_frame, "🟢 مبتدئ (5 مشاريع)", "مبتدئ")
-        self.btn_tab_int = self.create_tab_btn(tabs_frame, "🟡 متوسط (5 مشاريع)", "متوسط")
-        self.btn_tab_adv = self.create_tab_btn(tabs_frame, "🔴 متقدم (5 مشاريع)", "متقدم")
+        self.btn_tab_all = self.create_tab_btn(tabs_frame, ar("الكل (15 مشروع)"), "الكل")
+        self.btn_tab_beg = self.create_tab_btn(tabs_frame, f"🟢 {ar('مبتدئ (5 مشاريع)')}", "مبتدئ")
+        self.btn_tab_int = self.create_tab_btn(tabs_frame, f"🟡 {ar('متوسط (5 مشاريع)')}", "متوسط")
+        self.btn_tab_adv = self.create_tab_btn(tabs_frame, f"🔴 {ar('متقدم (5 مشاريع)')}", "متقدم")
 
         # Scrollable Cards Area
         container = tk.Frame(self, bg="#0B0F19", padx=20, pady=6)
@@ -232,7 +236,7 @@ class MasterLauncherApp(tk.Tk):
         btn = tk.Button(
             parent,
             text=text,
-            font=("Segoe UI", 10, "bold"),
+            font=get_font(10, "bold"),
             bg="#1E293B" if filter_val != "الكل" else "#0284C7",
             fg="#94A3B8" if filter_val != "الكل" else "#FFFFFF",
             relief=tk.FLAT,
@@ -276,8 +280,8 @@ class MasterLauncherApp(tk.Tk):
             # Left side: Launch Button
             btn_launch = tk.Button(
                 card,
-                text="⚡ تشغيل المشروع\nLaunch App",
-                font=("Segoe UI", 10, "bold"),
+                text=f"⚡ {ar('تشغيل المشروع')}\nLaunch App",
+                font=get_font(9, "bold"),
                 bg="#0284C7",
                 fg="#FFFFFF",
                 activebackground="#0369A1",
@@ -300,8 +304,8 @@ class MasterLauncherApp(tk.Tk):
             # Level badge
             level_badge = tk.Label(
                 top_row,
-                text=p["level"],
-                font=("Segoe UI", 8, "bold"),
+                text=ar(p["level"]),
+                font=get_font(8, "bold"),
                 bg="#1F2937",
                 fg=p["level_color"],
                 padx=8,
@@ -310,10 +314,11 @@ class MasterLauncherApp(tk.Tk):
             level_badge.pack(side=tk.LEFT)
 
             # Project Title
+            title_text = f"{p['icon']} {ar(p['title'])}  •  {p['title_en']}"
             title_lbl = tk.Label(
                 top_row,
-                text=f"{p['icon']} {p['title']}  •  {p['title_en']}",
-                font=("Segoe UI", 12, "bold"),
+                text=title_text,
+                font=get_font(12, "bold"),
                 bg="#111827",
                 fg="#F8FAFC"
             )
@@ -322,8 +327,8 @@ class MasterLauncherApp(tk.Tk):
             # Description
             desc_lbl = tk.Label(
                 info_frame,
-                text=p["desc"],
-                font=("Segoe UI", 9),
+                text=ar(p["desc"]),
+                font=get_font(9),
                 bg="#111827",
                 fg="#94A3B8",
                 anchor="e",
@@ -334,7 +339,7 @@ class MasterLauncherApp(tk.Tk):
     def launch_project(self, folder_name):
         script_path = os.path.join(self.base_dir, folder_name, "main.py")
         if not os.path.exists(script_path):
-            messagebox.showerror("خطأ", f"ملف المشروع غير موجود في المسار:\n{script_path}")
+            messagebox.showerror(ar("خطأ"), f"{ar('ملف المشروع غير موجود في المسار:')}\n{script_path}")
             return
 
         try:

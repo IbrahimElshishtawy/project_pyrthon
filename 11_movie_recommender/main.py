@@ -10,6 +10,13 @@ import os
 import tkinter as tk
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from arabic_helper import enable_arabic_support
+    enable_arabic_support()
+except Exception:
+    pass
 
 from core.recommender_engine import MovieRecommendationEngine, get_default_movies
 from ui.movie_view import MovieRecommenderView
